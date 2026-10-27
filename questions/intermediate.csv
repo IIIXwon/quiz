@@ -1,0 +1,418 @@
+﻿번호,과목,난이도,분류,유형,문제,코드,보기1,보기2,보기3,보기4,정답,해설
+I001,Java,중급,상속,주관식,출력 결과는?,"static class A { A() { System.out.print(""A""); } }
+static class B extends A { B() { System.out.print(""B""); } }
+
+new B();",,,,,AB,자식 객체를 만들면 부모 생성자가 먼저 실행되고 그다음 자식 생성자가 실행됩니다. 자식 생성자 첫 줄에 super()가 자동으로 들어가기 때문입니다.
+I002,Java,중급,상속,주관식,출력 결과는?,"static class A { String hi() { return ""A""; } }
+static class B extends A {
+    String hi() { return super.hi() + ""B""; }
+}
+
+System.out.println(new B().hi());",,,,,AB,"super.hi()는 부모 클래스의 hi()를 호출합니다. 부모 결과 ""A"" 뒤에 ""B""를 붙여 AB입니다."
+I003,Java,중급,상속,객관식,Java 클래스 상속에 대한 설명으로 옳은 것은?,,상속은 인터페이스끼리만 가능하다,부모 클래스의 생성자도 상속된다,한 클래스가 여러 클래스를 동시에 extends할 수 있다,한 클래스는 하나의 클래스만 extends할 수 있다,4,Java 클래스는 단일 상속만 지원합니다. 여러 타입을 함께 갖고 싶으면 인터페이스를 여러 개 implements합니다. 생성자는 상속되지 않습니다.
+I004,Java,중급,상속,객관식,모든 Java 클래스의 최상위 부모 클래스는?,,Main,Class,System,Object,4,"extends를 쓰지 않은 클래스는 자동으로 java.lang.Object를 상속합니다. 그래서 모든 객체가 toString, equals, hashCode를 갖습니다."
+I005,Java,중급,상속,주관식,출력 결과는?,"static class A { String n = ""A""; }
+static class B extends A { String n = ""B""; }
+
+A a = new B();
+System.out.println(a.n);",,,,,A,필드는 오버라이딩되지 않습니다(필드 숨김). 필드 접근은 실제 객체가 아니라 참조 변수의 타입(A) 기준으로 정해져서 A의 n이 출력됩니다.
+I006,Java,중급,상속,주관식,출력 결과는?,"static class A { A(int x) { System.out.print(""A"" + x); } }
+static class B extends A {
+    B() { super(1); System.out.print(""B""); }
+}
+
+new B();",,,,,A1B,자식 생성자에서 super(1)로 부모의 A(int) 생성자를 직접 호출합니다. 부모 생성자가 먼저 끝나고 자식 생성자의 나머지가 실행됩니다.
+I007,Java,중급,상속,객관식,다음 코드를 컴파일하면?,"class A {
+    A(int x) { }
+}
+class B extends A {
+    B() { }
+}",정상 컴파일된다,실행 중 예외가 발생한다,A의 생성자에서 컴파일 에러가 난다,B의 생성자에서 컴파일 에러가 난다,4,"B의 생성자에는 super()가 자동으로 들어가는데, A에는 매개변수 없는 생성자가 없습니다. 그래서 B에서 컴파일 에러가 납니다. super(값)을 직접 호출해야 합니다."
+I008,Java,중급,상속,주관식,출력 결과는?,"Object o = ""hi"";
+System.out.println((o instanceof String) + "" "" + (o instanceof Object));",,,,,true true,instanceof는 실제 객체가 그 타입(또는 하위 타입)인지 검사합니다. 문자열은 String이면서 Object입니다.
+I009,Java,중급,상속,주관식,출력 결과는?,"static class A { void f() { System.out.print(""A""); } }
+static class B extends A { void f() { System.out.print(""B""); } }
+static class C extends B { }
+
+new C().f();",,,,,B,C는 f()를 재정의하지 않았으므로 가장 가까운 부모 B의 f()가 호출됩니다.
+I010,Java,중급,상속,객관식,final로 선언한 클래스의 특징은?,,static 메서드만 가질 수 있다,객체를 만들 수 없다,모든 필드가 자동으로 final이 된다,다른 클래스가 상속할 수 없다,4,final 클래스는 상속할 수 없습니다. String이 대표적인 예입니다. 객체 생성은 가능하고 필드가 자동으로 final이 되지도 않습니다.
+I011,Java,중급,상속,주관식,출력 결과는?,"static class A { A() { System.out.print(1); } }
+static class B extends A { B() { System.out.print(2); } }
+static class C extends B { C() { System.out.print(3); } }
+
+new C();",,,,,123,생성자는 가장 위 부모부터 차례로 실행됩니다. A → B → C 순서입니다.
+I012,Java,중급,상속,객관식,자식 클래스가 부모 클래스로부터 물려받지 않는 것은?,,public 메서드,생성자,protected 필드,public static 메서드,2,생성자는 상속되지 않습니다. 자식은 super(...)로 부모 생성자를 호출할 수만 있습니다.
+I013,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class Animal { String sound() { return ""?""; } }
+static class Dog extends Animal { String sound() { return ""멍""; } }
+
+Animal a = new Dog();
+System.out.println(a.sound());",,,,,멍,참조 변수 타입은 Animal이지만 실제 객체는 Dog입니다. 오버라이딩된 메서드는 실제 객체 기준으로 호출됩니다(동적 바인딩).
+I014,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static void f(Object o) { System.out.print(""O""); }
+static void f(String s) { System.out.print(""S""); }
+
+Object o = ""x"";
+f(o);
+f(""x"");",,,,,OS,"오버로딩은 컴파일 시점에 변수의 선언 타입으로 고릅니다. o는 Object 타입이라 f(Object)가, 문자열 리터럴은 f(String)이 선택됩니다. 실제 객체가 String이어도 상관없습니다."
+I015,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class A { static String name() { return ""A""; } }
+static class B extends A { static String name() { return ""B""; } }
+
+A a = new B();
+System.out.println(a.name());",,,,,A,static 메서드는 오버라이딩되지 않고 숨겨질 뿐입니다. 참조 변수 타입 A 기준으로 호출됩니다. static 메서드는 클래스 이름으로 호출하는 것이 바람직합니다.
+I016,Java,중급,다형성·오버라이딩,객관식,메서드 오버라이딩 규칙으로 틀린 것은?,,private 메서드는 오버라이딩할 수 없다,접근 제어자를 부모보다 좁게 바꿀 수 있다,메서드 이름과 매개변수 목록이 부모와 같아야 한다,final 메서드는 오버라이딩할 수 없다,2,오버라이딩할 때 접근 범위는 같거나 더 넓어야 합니다. 부모가 public이면 자식도 public이어야 합니다.
+I017,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class Animal { String sound() { return ""?""; } }
+static class Dog extends Animal { String sound() { return ""멍""; } }
+static class Cat extends Animal { String sound() { return ""야옹""; } }
+
+Animal[] arr = { new Dog(), new Cat(), new Animal() };
+for (Animal a : arr) {
+    System.out.print(a.sound() + "" "");
+}",,,,,멍 야옹 ?,같은 Animal 배열에 담겨 있어도 각 객체의 실제 클래스에 맞는 sound()가 호출됩니다.
+I018,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class Animal { }
+static class Dog extends Animal { }
+
+Animal a = new Animal();
+try {
+    Dog d = (Dog) a;
+    System.out.println(""ok"");
+} catch (ClassCastException e) {
+    System.out.println(""CCE"");
+}",,,,,CCE,실제 객체가 Animal이라 Dog로 강제 형변환할 수 없습니다. 컴파일은 되지만 실행 중 ClassCastException이 발생합니다.
+I019,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class A {
+    A() { show(); }
+    void show() { System.out.print(""A""); }
+}
+static class B extends A {
+    int x = 5;
+    void show() { System.out.print(""B"" + x); }
+}
+
+new B();",,,,,B0,부모 생성자에서 호출한 show()도 오버라이딩된 B의 show()가 실행됩니다. 그런데 이 시점에는 B의 필드 초기화(x = 5)가 아직 실행되지 않아 x는 기본값 0입니다. 생성자에서 오버라이딩 가능한 메서드를 호출하면 위험한 이유입니다.
+I020,Java,중급,다형성·오버라이딩,객관식,@Override 애노테이션의 역할은?,,부모의 메서드를 제대로 오버라이딩했는지 컴파일러가 검사하게 한다,메서드를 상속하지 못하게 막는다,부모 메서드를 자동으로 호출한다,메서드를 더 빠르게 실행한다,1,@Override를 붙이면 이름이나 매개변수를 잘못 써서 오버라이딩이 아닌 새 메서드가 되는 실수를 컴파일 에러로 잡아 줍니다.
+I021,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class P {
+    @Override
+    public String toString() { return ""P!""; }
+}
+
+System.out.println(new P());",,,,,P!,println에 객체를 넘기면 toString()이 호출됩니다. 재정의한 toString()의 결과가 출력됩니다.
+I022,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static void f(long x)    { System.out.print(""long""); }
+static void f(Integer x) { System.out.print(""Integer""); }
+
+f(5);",,,,,long,int 인자 5에 대해 컴파일러는 자동 형변환(int → long)을 오토박싱(int → Integer)보다 먼저 고려합니다. 그래서 f(long)이 선택됩니다.
+I023,Java,중급,다형성·오버라이딩,객관식,부모 타입 참조 변수로 자식 객체의 오버라이딩된 메서드를 호출하면?,,실행 시점의 실제 객체(자식)의 메서드가 실행된다,부모와 자식 메서드가 모두 실행된다,컴파일 에러가 난다,항상 부모의 메서드가 실행된다,1,인스턴스 메서드 호출은 실행 시점에 실제 객체를 보고 결정됩니다(동적 바인딩). 이것이 다형성의 핵심입니다.
+I024,Java,중급,다형성·오버라이딩,주관식,출력 결과는?,"static class A {
+    void f() { g(); }
+    void g() { System.out.print(""A""); }
+}
+static class B extends A {
+    void g() { System.out.print(""B""); }
+}
+
+new B().f();",,,,,B,"A의 f() 안에서 호출하는 g()도 this.g()이고, this는 실제 객체 B입니다. 그래서 B의 g()가 실행됩니다."
+I025,Java,중급,추상 클래스·인터페이스,객관식,추상 클래스에 대한 설명으로 틀린 것은?,,abstract 키워드로 선언한다,일반 메서드와 필드를 가질 수 있다,new로 직접 객체를 만들 수 있다,생성자를 가질 수 있다,3,"추상 클래스는 직접 객체로 만들 수 없고, 상속한 자식 클래스로 만들어야 합니다. 생성자는 자식 객체를 만들 때 호출됩니다."
+I026,Java,중급,추상 클래스·인터페이스,객관식,인터페이스에 선언한 필드는 자동으로 어떻게 될까?,,private 인스턴스 변수,protected 변수,선언할 수 없다,public static final 상수,4,인터페이스의 필드는 자동으로 public static final이 붙은 상수가 됩니다.
+I027,Java,중급,추상 클래스·인터페이스,주관식,출력 결과는?,"interface Shape { double area(); }
+static class Square implements Shape {
+    public double area() { return 4; }
+}
+
+Shape s = new Square();
+System.out.println(s.area());",,,,,4.0,인터페이스 타입 변수로 구현 객체를 다룹니다. area()가 double을 반환하므로 4가 아니라 4.0으로 출력됩니다.
+I028,Java,중급,추상 클래스·인터페이스,주관식,출력 결과는?,"interface Hi {
+    default String hi() { return ""hi""; }
+}
+static class K implements Hi { }
+
+System.out.println(new K().hi());",,,,,hi,Java 8부터 인터페이스에 default 메서드를 구현할 수 있습니다. 구현 클래스가 재정의하지 않으면 default 메서드가 쓰입니다.
+I029,Java,중급,추상 클래스·인터페이스,객관식,한 클래스가 구현(implements)할 수 있는 인터페이스의 개수는?,,1개,여러 개,2개,구현할 수 없다,2,클래스는 하나만 상속할 수 있지만 인터페이스는 쉼표로 구분해 여러 개 구현할 수 있습니다.
+I030,Java,중급,추상 클래스·인터페이스,주관식,출력 결과는?,"static abstract class A {
+    A() { System.out.print(""A""); }
+    abstract void f();
+}
+static class B extends A {
+    void f() { System.out.print(""f""); }
+}
+
+new B().f();",,,,,Af,"추상 클래스도 생성자를 가질 수 있고, 자식 객체를 만들 때 실행됩니다. 그 뒤 B가 구현한 f()가 호출됩니다."
+I031,Java,중급,추상 클래스·인터페이스,주관식,출력 결과는?,"interface U {
+    static int twice(int x) { return x * 2; }
+}
+
+System.out.println(U.twice(4));",,,,,8,인터페이스의 static 메서드는 인터페이스 이름으로 호출합니다.
+I032,Java,중급,추상 클래스·인터페이스,객관식,인터페이스의 추상 메서드를 클래스에서 구현할 때 접근 제어자는?,,public이어야 한다,아무것도 안 써도 된다,private이어야 한다,protected여야 한다,1,인터페이스의 추상 메서드는 자동으로 public입니다. 구현할 때 접근 범위를 좁힐 수 없으므로 public을 써야 합니다. 생략하면 컴파일 에러입니다.
+I033,Java,중급,추상 클래스·인터페이스,주관식,출력 결과는?,"Runnable r = new Runnable() {
+    public void run() { System.out.print(""run""); }
+};
+r.run();",,,,,run,익명 클래스로 인터페이스를 그 자리에서 구현해 객체를 만들었습니다.
+I034,Java,중급,추상 클래스·인터페이스,객관식,추상 메서드를 하나라도 가진 클래스는?,,static으로 선언해야 한다,자동으로 인터페이스가 된다,final로 선언해야 한다,abstract 클래스로 선언해야 한다,4,추상 메서드가 있는 클래스는 반드시 abstract 클래스로 선언해야 합니다. 그렇지 않으면 컴파일 에러입니다.
+I035,Java,중급,static·final,주관식,출력 결과는?,"static class C {
+    static int s = 0;
+    int i = 0;
+    C() { s++; i++; }
+}
+
+C a = new C();
+C b = new C();
+System.out.println(C.s + "" "" + b.i);",,,,,2 1,"static 필드 s는 모든 객체가 공유해 2가 되고, 인스턴스 필드 i는 객체마다 따로 있어 b.i는 1입니다."
+I036,Java,중급,static·final,객관식,static 메서드 안에서 할 수 없는 것은?,,다른 static 메서드 호출,this 사용,static 필드 읽기,지역 변수 선언,2,static 메서드는 특정 객체 없이 실행되므로 this가 없습니다. 인스턴스 필드나 메서드도 객체 없이 바로 쓸 수 없습니다.
+I037,Java,중급,static·final,주관식,출력 결과는?,"final int[] a = {1};
+a[0] = 2;
+System.out.println(a[0]);",,,,,2,final은 변수 a가 다른 배열을 가리키지 못하게 막을 뿐입니다. 배열 내용은 바꿀 수 있습니다.
+I038,Java,중급,static·final,객관식,final 지역 변수에 대한 설명으로 옳은 것은?,,자동으로 static이 된다,반드시 선언과 동시에 대문자 이름을 써야 한다,값을 한 번만 대입할 수 있다,참조하는 객체의 내용도 바꿀 수 없다,3,"final 변수는 한 번만 대입할 수 있습니다. 참조형이면 다른 객체로 바꿀 수 없을 뿐, 객체 내용 변경은 막지 않습니다."
+I039,Java,중급,static·final,주관식,출력 결과는?,"static class S {
+    static { System.out.print(""S""); }
+    S() { System.out.print(""C""); }
+}
+
+new S();
+new S();",,,,,SCC,static 초기화 블록은 클래스가 처음 쓰일 때 한 번만 실행됩니다. 생성자는 객체를 만들 때마다 실행됩니다.
+I040,Java,중급,static·final,주관식,출력 결과는?,"static class I {
+    { System.out.print(""i""); }
+    I() { System.out.print(""c""); }
+}
+
+new I();",,,,,ic,인스턴스 초기화 블록 { }은 객체를 만들 때 생성자 본문보다 먼저 실행됩니다.
+I041,Java,중급,static·final,객관식,final 메서드의 특징은?,,반드시 static이어야 한다,자식 클래스에서 오버라이딩할 수 없다,호출할 수 없다,값을 반환할 수 없다,2,final 메서드는 자식 클래스가 재정의할 수 없습니다. 동작이 바뀌면 안 되는 메서드에 씁니다.
+I042,Java,중급,static·final,주관식,출력 결과는?,"static class K { static int v; }
+
+K a = new K();
+K b = new K();
+a.v = 3;
+System.out.println(b.v);",,,,,3,v는 static 필드라 클래스에 하나만 있습니다. a.v로 바꿔도 b.v와 같은 변수입니다. 헷갈리지 않게 K.v로 쓰는 게 좋습니다.
+I043,Java,중급,String·StringBuilder,주관식,출력 결과는?,"StringBuilder sb = new StringBuilder(""abc"");
+sb.reverse();
+System.out.println(sb);",,,,,cba,StringBuilder는 가변 객체라서 reverse()가 객체 자체를 뒤집습니다. 결과를 따로 받지 않아도 바뀝니다.
+I044,Java,중급,String·StringBuilder,주관식,출력 결과는?,"StringBuilder sb = new StringBuilder(""ab"");
+sb.insert(0, ""x"").append(""y"");
+System.out.println(sb);",,,,,xaby,"insert와 append는 자기 자신을 돌려주므로 이어서 호출할 수 있습니다(메서드 체이닝). 맨 앞에 x, 맨 뒤에 y가 붙습니다."
+I045,Java,중급,String·StringBuilder,주관식,출력 결과는?,"String s1 = ""java"";
+String s2 = ""java"";
+System.out.println(s1 == s2);",,,,,true,문자열 리터럴은 String Pool에 하나만 저장되고 재사용됩니다. 그래서 같은 리터럴은 같은 객체입니다. 그래도 비교는 equals로 하는 것이 원칙입니다.
+I046,Java,중급,String·StringBuilder,주관식,출력 결과는?,"String s = null;
+System.out.println(s + ""!"");",,,,,null!,"문자열 연결에서 null은 ""null""이라는 글자로 바뀝니다. 예외가 나지 않습니다. 단, s.length()처럼 메서드를 호출하면 NullPointerException입니다."
+I047,Java,중급,String·StringBuilder,주관식,출력 결과는?,"System.out.println(""a-b-c"".split(""-"")[1]);",,,,,b,"split 결과 {""a"", ""b"", ""c""}에서 인덱스 1은 ""b""입니다."
+I048,Java,중급,String·StringBuilder,주관식,출력 결과는?,"System.out.println(String.join(""/"", ""a"", ""b"", ""c""));",,,,,a/b/c,String.join은 구분자를 사이에 넣어 문자열들을 이어붙입니다.
+I049,Java,중급,String·StringBuilder,주관식,출력 결과는?,"System.out.println(""abc"".contains(""bc"") + "" "" + ""abc"".startsWith(""b""));",,,,,true false,"contains는 포함 여부, startsWith는 해당 문자열로 시작하는지를 검사합니다."
+I050,Java,중급,String·StringBuilder,객관식,StringBuilder와 StringBuffer의 차이로 옳은 것은?,,둘은 완전히 같고 이름만 다르다,StringBuilder는 불변 객체다,StringBuffer만 내용을 바꿀 수 있다,StringBuffer는 동기화되어 여러 스레드에서 안전하지만 더 느리다,4,"둘 다 가변 문자열입니다. StringBuffer는 메서드가 synchronized라 스레드에 안전하지만 느리고, 단일 스레드에서는 StringBuilder를 씁니다."
+I051,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"Integer a = 127, b = 127;
+System.out.println(a == b);",,,,,true,-128 ~ 127 범위의 Integer는 캐시된 객체를 재사용하므로 같은 객체입니다.
+I052,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"Integer a = 128, b = 128;
+System.out.println((a == b) + "" "" + a.equals(b));",,,,,false true,"128은 캐시 범위를 벗어나 서로 다른 객체가 만들어집니다. ==는 false, 값 비교 equals는 true입니다. 래퍼끼리는 항상 equals로 비교해야 합니다."
+I053,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"int x = Integer.parseInt(""42"") + 1;
+System.out.println(x);",,,,,43,Integer.parseInt는 문자열을 int로 바꿉니다.
+I054,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"Integer n = null;
+try {
+    int x = n;
+    System.out.println(x);
+} catch (NullPointerException e) {
+    System.out.println(""NPE"");
+}",,,,,NPE,int x = n은 자동으로 n.intValue()를 호출합니다(언박싱). n이 null이라 NullPointerException이 발생합니다.
+I055,Java,중급,래퍼·오토박싱,객관식,오토박싱(autoboxing)이란?,,문자열을 숫자로 자동 변환하는 것,객체를 자동으로 삭제하는 것,배열을 리스트로 자동 변환하는 것,기본형 값을 대응하는 래퍼 객체로 자동 변환하는 것,4,"int → Integer처럼 기본형을 래퍼 클래스 객체로 자동 변환하는 것이 오토박싱, 반대가 언박싱입니다."
+I056,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"List<Integer> list = new ArrayList<>(List.of(1, 2, 3));
+list.remove(1);
+System.out.println(list);",,,,,"[1, 3]",remove(int index)와 remove(Object)가 오버로딩되어 있습니다. int 1을 넘기면 인덱스 1의 원소(2)를 지웁니다.
+I057,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,"List<Integer> list = new ArrayList<>(List.of(1, 2, 3));
+list.remove(Integer.valueOf(1));
+System.out.println(list);",,,,,"[2, 3]",Integer 객체를 넘기면 remove(Object)가 호출되어 값이 1인 원소를 지웁니다.
+I058,Java,중급,래퍼·오토박싱,주관식,출력 결과는?,System.out.println(0.1 + 0.2 == 0.3);,,,,,false,double은 2진수 근사값이라 0.1 + 0.2는 정확히 0.3이 아닙니다(0.30000000000000004). 실수 비교는 오차 범위를 두거나 BigDecimal을 씁니다.
+I059,Java,중급,컬렉션,주관식,출력 결과는?,"List<String> l = new ArrayList<>();
+l.add(""a"");
+l.add(""b"");
+l.add(0, ""c"");
+System.out.println(l);",,,,,"[c, a, b]","add(index, 값)은 그 위치에 끼워 넣고 뒤 원소들을 한 칸씩 밉니다."
+I060,Java,중급,컬렉션,주관식,출력 결과는?,"Set<Integer> s = new HashSet<>(List.of(1, 2, 2, 3));
+System.out.println(s.size());",,,,,3,Set은 중복을 허용하지 않아 2가 한 번만 저장됩니다.
+I061,Java,중급,컬렉션,주관식,출력 결과는?,"TreeSet<String> t = new TreeSet<>(List.of(""b"", ""a"", ""c""));
+System.out.println(t);",,,,,"[a, b, c]",TreeSet은 원소를 정렬된 상태로 유지합니다.
+I062,Java,중급,컬렉션,주관식,출력 결과는?,"Map<String, Integer> m = new HashMap<>();
+m.put(""a"", 1);
+m.put(""a"", 2);
+System.out.println(m.get(""a"") + "" "" + m.size());",,,,,2 1,같은 키로 다시 put하면 값이 덮어써집니다. 키는 하나라서 크기는 1입니다.
+I063,Java,중급,컬렉션,주관식,출력 결과는?,"Map<String, Integer> m = new HashMap<>();
+System.out.println(m.getOrDefault(""z"", 0));",,,,,0,"getOrDefault는 키가 없으면 두 번째 인자(기본값)를 돌려줍니다. get(""z"")였다면 null입니다."
+I064,Java,중급,컬렉션,주관식,출력 결과는?,"String[] words = {""a"", ""b"", ""a""};
+Map<String, Integer> cnt = new TreeMap<>();
+for (String w : words) {
+    cnt.put(w, cnt.getOrDefault(w, 0) + 1);
+}
+System.out.println(cnt);",,,,,"{a=2, b=1}",단어별 등장 횟수를 셉니다. TreeMap이라 키가 정렬되어 출력됩니다.
+I065,Java,중급,컬렉션,주관식,출력 결과는?,"Deque<Integer> st = new ArrayDeque<>();
+st.push(1);
+st.push(2);
+System.out.println(st.pop() + "" "" + st.peek());",,,,,2 1,"push/pop은 스택(LIFO)처럼 동작합니다. 마지막에 넣은 2가 먼저 나오고, peek은 꺼내지 않고 맨 위(1)를 봅니다."
+I066,Java,중급,컬렉션,주관식,출력 결과는?,"Queue<Integer> q = new LinkedList<>();
+q.offer(1);
+q.offer(2);
+System.out.println(q.poll() + "" "" + q.size());",,,,,1 1,큐는 먼저 넣은 것이 먼저 나옵니다(FIFO). poll로 1을 꺼내면 하나가 남습니다.
+I067,Java,중급,컬렉션,객관식,중복된 원소를 허용하지 않는 컬렉션은?,,ArrayDeque,HashSet,ArrayList,LinkedList,2,"Set 계열(HashSet, TreeSet, LinkedHashSet)은 중복을 허용하지 않습니다."
+I068,Java,중급,컬렉션,객관식,키를 넣은 순서대로 순회하는 Map 구현체는?,,HashMap,LinkedHashMap,TreeMap,Hashtable,2,"LinkedHashMap은 삽입 순서를 유지합니다. HashMap은 순서를 보장하지 않고, TreeMap은 키의 정렬 순서입니다."
+I069,Java,중급,컬렉션,주관식,출력 결과는?,"List<Integer> l = new ArrayList<>(List.of(1, 2, 3));
+try {
+    for (Integer x : l) {
+        if (x == 1) l.remove(x);
+    }
+    System.out.println(l);
+} catch (ConcurrentModificationException e) {
+    System.out.println(""CME"");
+}",,,,,CME,for-each로 순회하는 도중 리스트에서 직접 remove하면 다음 원소를 꺼낼 때 ConcurrentModificationException이 발생합니다. Iterator.remove()나 removeIf를 써야 합니다.
+I070,Java,중급,컬렉션,주관식,출력 결과는?,"List<Integer> l = new ArrayList<>(List.of(1, 2, 3, 4));
+l.removeIf(x -> x % 2 == 0);
+System.out.println(l);",,,,,"[1, 3]",removeIf는 조건에 맞는 원소를 안전하게 모두 지웁니다.
+I071,Java,중급,컬렉션,주관식,출력 결과는?,"List<Integer> l = new ArrayList<>(List.of(3, 1, 2));
+l.sort(Comparator.reverseOrder());
+System.out.println(l);",,,,,"[3, 2, 1]",Comparator.reverseOrder()는 내림차순 정렬 기준입니다.
+I072,Java,중급,컬렉션,객관식,인덱스로 원소를 조회(get)하는 속도가 더 빠른 것은?,,HashSet,LinkedList,둘이 항상 같다,ArrayList,4,ArrayList는 내부가 배열이라 get(i)가 바로 접근(O(1))됩니다. LinkedList는 처음부터 따라가야 해서 O(n)입니다.
+I073,Java,중급,예외 처리,주관식,출력 결과는?,"try {
+    int x = 1 / 0;
+    System.out.print(""a"");
+} catch (ArithmeticException e) {
+    System.out.print(""b"");
+} finally {
+    System.out.print(""c"");
+}",,,,,bc,"0으로 나누는 순간 예외가 발생해 ""a""는 건너뛰고 catch로 갑니다. finally는 항상 실행됩니다."
+I074,Java,중급,예외 처리,주관식,출력 결과는?,"static void f() {
+    try {
+        System.out.print(""t"");
+        return;
+    } finally {
+        System.out.print(""f"");
+    }
+}
+
+f();",,,,,tf,try 안에서 return해도 메서드를 빠져나가기 전에 finally가 실행됩니다.
+I075,Java,중급,예외 처리,객관식,반드시 try-catch로 처리하거나 throws로 선언해야 하는 예외(checked exception)는?,,ArithmeticException,NullPointerException,IOException,ArrayIndexOutOfBoundsException,3,"IOException은 checked 예외라 처리하지 않으면 컴파일 에러입니다. RuntimeException의 자식(NPE, 배열 범위, 산술 예외 등)은 unchecked라 처리가 강제되지 않습니다."
+I076,Java,중급,예외 처리,주관식,출력 결과는?,"try {
+    throw new IllegalStateException(""x"");
+} catch (IllegalArgumentException e) {
+    System.out.print(""IAE"");
+} catch (RuntimeException e) {
+    System.out.print(""RE"");
+}",,,,,RE,IllegalStateException은 IllegalArgumentException이 아니므로 첫 catch를 지나칩니다. 둘 다 RuntimeException의 자식이라 두 번째 catch에 잡힙니다.
+I077,Java,중급,예외 처리,객관식,다음 코드를 컴파일하면?,"try {
+    doSomething();
+} catch (Exception e) {
+    System.out.println(""E"");
+} catch (RuntimeException e) {
+    System.out.println(""RE"");
+}",실행 중 예외가 발생한다,정상 컴파일된다,두 번째 catch가 도달할 수 없어 컴파일 에러가 난다,첫 번째 catch에서 컴파일 에러가 난다,3,Exception이 RuntimeException의 부모라서 첫 catch가 모든 예외를 잡습니다. 두 번째 catch는 절대 실행될 수 없어 컴파일 에러입니다. 자식 예외를 먼저 써야 합니다.
+I078,Java,중급,예외 처리,주관식,출력 결과는?,"static class MyEx extends Exception {
+    MyEx(String m) { super(m); }
+}
+
+try {
+    throw new MyEx(""oops"");
+} catch (MyEx e) {
+    System.out.println(e.getMessage());
+}",,,,,oops,직접 만든 예외 클래스도 생성자에서 super(메시지)로 넘기면 getMessage()로 꺼낼 수 있습니다.
+I079,Java,중급,예외 처리,주관식,출력 결과는?,"try {
+    try {
+        throw new RuntimeException(""in"");
+    } finally {
+        System.out.print(""F"");
+    }
+} catch (RuntimeException e) {
+    System.out.print(e.getMessage());
+}",,,,,Fin,"안쪽 try에 catch가 없어도 finally는 실행됩니다. 그 뒤 예외가 바깥으로 전달되어 바깥 catch가 메시지 ""in""을 출력합니다."
+I080,Java,중급,예외 처리,주관식,출력 결과는?,"static int f() {
+    try {
+        throw new RuntimeException();
+    } catch (RuntimeException e) {
+        return 1;
+    } finally {
+        System.out.print(""F"");
+    }
+}
+
+System.out.println(f());",,,,,F1,catch에서 return 1을 만나도 finally가 먼저 실행되어 F를 출력합니다. 그다음 1이 반환되어 출력됩니다.
+I081,Java,중급,예외 처리,객관식,메서드 선언부의 throws 키워드의 의미는?,,예외를 직접 발생시킨다,이 메서드에서 발생할 수 있는 예외를 호출한 쪽에 넘긴다고 선언한다,예외가 발생하면 프로그램을 종료한다,예외를 무시한다,2,throws는 예외 처리를 호출자에게 맡긴다는 선언입니다. 예외를 직접 발생시키는 것은 throw입니다.
+I082,Java,중급,예외 처리,주관식,출력 결과는?,"try {
+    Integer.parseInt(""abc"");
+} catch (NumberFormatException e) {
+    System.out.println(""NFE"");
+}",,,,,NFE,숫자로 바꿀 수 없는 문자열을 parseInt하면 NumberFormatException이 발생합니다.
+I083,Java,중급,예외 처리,주관식,출력 결과는?,"try {
+    Object o = ""s"";
+    Integer i = (Integer) o;
+} catch (ClassCastException | NullPointerException e) {
+    System.out.println(""caught"");
+}",,,,,caught,| 로 여러 예외를 한 catch에서 잡을 수 있습니다(멀티 catch). 문자열을 Integer로 바꾸려 해 ClassCastException이 발생합니다.
+I084,Java,중급,예외 처리,객관식,finally 블록이 실행되지 않는 경우는?,,try 안에서 System.exit(0)을 호출한 경우,예외가 발생하지 않은 경우,catch 안에서 예외가 다시 발생한 경우,try 안에서 return한 경우,1,"finally는 return이나 예외가 있어도 실행되지만, System.exit()로 JVM 자체가 종료되면 실행되지 않습니다."
+I085,Java,중급,equals·hashCode,객관식,equals()를 재정의하면 함께 재정의해야 하는 메서드는?,,hashCode(),toString(),finalize(),clone(),1,"equals가 true인 두 객체는 hashCode도 같아야 합니다. 그렇지 않으면 HashSet, HashMap에서 같은 객체를 찾지 못합니다."
+I086,Java,중급,equals·hashCode,주관식,출력 결과는?,"static class P {
+    int x;
+    P(int x) { this.x = x; }
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof P && ((P) o).x == x;
+    }
+}
+
+Set<P> s = new HashSet<>();
+s.add(new P(1));
+s.add(new P(1));
+System.out.println(s.size());",,,,,2,equals만 재정의하고 hashCode를 재정의하지 않으면 두 객체의 hashCode가 달라 HashSet은 서로 다른 객체로 보고 둘 다 저장합니다.
+I087,Java,중급,equals·hashCode,주관식,출력 결과는?,"static class P {
+    int x;
+    P(int x) { this.x = x; }
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof P && ((P) o).x == x;
+    }
+    @Override
+    public int hashCode() { return Integer.hashCode(x); }
+}
+
+Set<P> s = new HashSet<>();
+s.add(new P(1));
+s.add(new P(1));
+System.out.println(s.size());",,,,,1,equals와 hashCode를 모두 재정의하면 값이 같은 객체를 같은 것으로 보아 하나만 저장됩니다.
+I088,Java,중급,equals·hashCode,주관식,출력 결과는?,"System.out.println(""a"".equals(null));",,,,,false,equals 규약상 어떤 객체도 null과는 같지 않으므로 false입니다. 예외는 나지 않습니다.
+I089,Java,중급,equals·hashCode,주관식,출력 결과는?,"System.out.println(Objects.equals(null, null));",,,,,true,Objects.equals는 null을 안전하게 처리합니다. 둘 다 null이면 true입니다.
+I090,Java,중급,equals·hashCode,객관식,a.equals(b)가 true일 때 반드시 성립해야 하는 것은?,,a.hashCode() == b.hashCode(),a.toString().equals(b.toString()),a와 b의 클래스가 final,a == b,1,equals가 true면 hashCode가 같아야 합니다. 반대로 hashCode가 같다고 equals가 true일 필요는 없습니다(해시 충돌).
+I091,Java,중급,제네릭·람다,주관식,출력 결과는?,"static <T> T first(List<T> list) {
+    return list.get(0);
+}
+
+System.out.println(first(List.of(""x"", ""y"")));",,,,,x,제네릭 메서드 <T>는 호출할 때 넘긴 인자로 타입이 정해집니다. 여기서는 T가 String입니다.
+I092,Java,중급,제네릭·람다,주관식,출력 결과는?,"List<String> l = new ArrayList<>(List.of(""bb"", ""a"", ""ccc""));
+l.sort((a, b) -> a.length() - b.length());
+System.out.println(l);",,,,,"[a, bb, ccc]",람다로 Comparator를 만들었습니다. 길이가 짧은 순서로 정렬됩니다.
+I093,Java,중급,제네릭·람다,주관식,출력 결과는?,"Function<Integer, Integer> f = x -> x * 2;
+System.out.println(f.apply(5));",,,,,10,"Function<T, R>은 값을 받아 결과를 돌려주는 함수형 인터페이스이고 apply로 실행합니다."
+I094,Java,중급,제네릭·람다,객관식,List<int> list = new ArrayList<>(); 를 컴파일하면?,,경고만 나온다,제네릭 타입에 기본형을 쓸 수 없어 컴파일 에러가 난다,정상 컴파일된다,실행 중 예외가 발생한다,2,제네릭 타입 인자에는 참조형만 쓸 수 있습니다. List<Integer>처럼 래퍼 클래스를 써야 합니다.
+I095,Java,중급,제네릭·람다,주관식,출력 결과는?,"List.of(1, 2, 3).forEach(x -> System.out.print(x * x));",,,,,149,"forEach는 각 원소에 람다를 실행합니다. 1, 4, 9가 이어서 출력됩니다."
+I096,Java,중급,제네릭·람다,객관식,람다식을 대입할 수 있는 타입은?,,추상 메서드가 하나뿐인 인터페이스(함수형 인터페이스),추상 클래스,모든 클래스,final 클래스,1,"람다는 추상 메서드가 정확히 하나인 함수형 인터페이스(Runnable, Comparator, Function 등)에만 대입할 수 있습니다."
+I097,Java,중급,값 전달,주관식,출력 결과는?,"static void f(StringBuilder sb) {
+    sb.append(""!"");
+}
+
+StringBuilder sb = new StringBuilder(""hi"");
+f(sb);
+System.out.println(sb);",,,,,hi!,같은 StringBuilder 객체를 수정했으므로 원본에 반영됩니다.
+I098,Java,중급,값 전달,주관식,출력 결과는?,"static void f(List<Integer> l) {
+    l = new ArrayList<>();
+    l.add(1);
+}
+
+List<Integer> list = new ArrayList<>();
+f(list);
+System.out.println(list);",,,,,[],매개변수에 새 리스트를 대입한 뒤 추가했으므로 원본 리스트는 비어 있는 그대로입니다.
+I099,Java,중급,값 전달,주관식,출력 결과는?,"static void inc(Integer n) {
+    n++;
+}
+
+Integer a = 10;
+inc(a);
+System.out.println(a);",,,,,10,Integer는 불변입니다. n++은 새 Integer 객체를 지역 변수 n에 대입할 뿐이라 원본 a는 그대로입니다.
+I100,Java,중급,값 전달,주관식,출력 결과는?,"static class Person {
+    String name;
+    Person(String n) { name = n; }
+}
+static void rename(Person p) {
+    p.name = ""Kim"";
+    p = new Person(""Park"");
+    p.name = ""Choi"";
+}
+
+Person p = new Person(""Lee"");
+rename(p);
+System.out.println(p.name);",,,,,Kim,"재할당 전에 한 수정(""Kim"")만 원본 객체에 반영되고, 새 객체로 재할당한 뒤의 수정은 원본과 무관합니다."
